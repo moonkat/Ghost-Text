@@ -13,24 +13,27 @@
 
 var ghostTag = 'ghost', ghostSelector = '['+ghostTag+']';
 
-$(ghostSelector).livequery(function(){
-	//set for first time
-	var me = $(this);
-	if (me.val() == "") {
-		me.val(me.attr(ghostTag));
-		me.css('color', '#999');
-	}
-	
-	me.focus(function(){
-		if (me.attr(ghostTag) == me.val()) {
-			me.val("");
-			me.css('color', '#000');
-		}
-	});
-	me.blur(function(){
-		if (me.val() == "") {
-			me.val(me.attr(ghostTag));
-			me.css('color', '#999');
-		}
-	});
-});
+	$(ghostSelector).livequery(function() {
+        //set for first time
+        if ($(this).val() == "") {
+            $(this).val($(this).attr(ghostTag));
+            $(this).addClass("ghost_text");
+        }
+        if ($(this).val() == $(this).attr(ghostTag)) {
+            $(this).addClass("ghost_text");
+        }
+
+        $(this).focus(function() {
+            if ($(this).attr(ghostTag) == $(this).val()) {
+                $(this).val("");
+                $(this).addClass("focus");
+            }
+        });
+        $(this).blur(function() {
+            if ($(this).val() == "") {
+                $(this).val($(this).attr(ghostTag));
+                $(this).addClass("ghost_text");
+			 $(this).removeClass("focus");
+            }
+        });
+    });
